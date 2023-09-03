@@ -1,0 +1,34 @@
+<!-- 
+    Nama        : Mulya Irwansyah
+    NIM         : 24060121140110
+    Deskripsi   : Implementasi modul pertemuan 01_form_validation HTML
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Login</title>
+
+    <script>
+        function validateForm() {
+            var x = document.forms["formLogin"]["fusername"].value;
+            var y = document.forms["formLogin"]["fpassword"].value;
+            if (x == "" || y == "") {
+                alert("Username and password harus diisi");
+                return false;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form name="formLogin" action="process.php" onsubmit="return validateForm()" method="post">
+    Name: <input type="text" name="fusername" /><br />
+    password: <input type="text" name="fpassword" />
+    <input type="submit" value="summit">
+    </form>
+
+</body>
+</html>
