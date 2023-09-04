@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- 
+Nama : Emerio Kevin Aryaputra
+NIM  :24060121120012
+Lab  : PBP A2
+Tanggal : 4 September 2023
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Form Login</title>
+		<script>
+			validateForm = () => {
+				x = document.forms['formLogin']['fusername'].value;
+				y = document.forms['formLogin']['fpassword'].value;
+				if (x == '' || y == '') {
+					alert('Username dan password harus diisi!');
+					return false;
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<h2>Login</h2>
+		<form name="formLogin" onsubmit="return validateForm()" method="post">
+			Name : <input type="text" name="fusername" /><br />
+			Password : <input type="password" name="fpassword" />
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>

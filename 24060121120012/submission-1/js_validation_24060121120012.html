@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<!-- 
+Nama : Emerio Kevin Aryaputra
+NIM  :24060121120012
+Lab  : PBP A2
+Tanggal : 4 September 2023
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Input Produk</title>
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		/>
+		<script>
+			function generateRandomChar() {
+				characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+				randomIndex = Math.floor(Math.random() * characters.length);
+				return characters.charAt(randomIndex);
+			}
+
+			function generateCaptcha() {
+				captcha = '';
+				for (i = 0; i < 5; i++) {
+					captcha += generateRandomChar();
+				}
+				return captcha;
+			}
+
+			function setCaptcha() {
+				captchaElement = document.querySelector('#captcha');
+				captchaValue = generateCaptcha();
+				captchaElement.innerHTML = captchaElement.value = captchaValue;
+			}
+
+			function checkCaptcha() {
+				userInput = document.forms['productForm']['captcha-form'].value;
+				captchaValue = document.getElementById('captcha').value;
+				captchaError = document.getElementById('error-captcha');
+
+				captchaError.innerHTML = '';
+
+				if (userInput === captchaValue) {
+					return true;
+				} else {
+					captchaError.innerHTML = 'Captcha salah!';
+					setCaptcha();
+					return false;
+				}
+			}
+
+			function resetCaptcha() {
+				setCaptcha();
+				document.getElementById('captcha-form').value = '';
+
+				document.getElementById('error-captcha').innerHTML = '';
+			}
+
+			window.addEventListener('load', setCaptcha);
+
+			function clearErrorMessages() {
+				spans = document.getElementsByTagName('span');
+
+				for (i = 0; i < spans.length; i++) {
+					spans[i].innerHTML = '';
+				}
+			}
+
+			function makeSubCategory(selectElement, options) {
+				for (i = 0; i < options.length; i++) {
+					option = document.createElement('option');
+					option.value = options[i].value;
+					option.text = options[i].text;
+					selectElement.appendChild(option);
+				}
+			}
+
+			function clearSubCategory() {
+				subCategoryContent = document.getElementById('subDropdown');
+				subCategoryContent.innerHTML =
+					'<option value="default" disabled selected>--Pilih Sub-Kategori--</option>';
+				subCategoryContent.disabled = true;
+			}
+
+			function subCategoryDropdown() {
+				subCategoryContent = document.getElementById('subDropdown');
+				category = document.forms['productForm']['product-category'].value;
+
+				subCategoryContent.innerHTML =
+					'<option value="default" disabled selected>--Pilih Sub-Kategori--</option>';
+
+				if (category === 'default') {
+					subCategoryContent.disabled = true;
+					return;
+				}
+
+				subCategoryContent.disabled = false;
+
+				optionsBaju = [
+					{ value: 'baju-pria', text: 'Baju Pria' },
+					{ value: 'baju-wanita', text: 'Baju Wanita' },
+					{ value: 'baju-anak', text: 'Baju Anak' },
+				];
+
+				optionsElektronik = [
+					{ value: 'mesin-cuci', text: 'Mesin Cuci' },
+					{ value: 'kulkas', text: 'Kulkas' },
+					{ value: 'ac', text: 'AC' },
+				];
+
+				optionsAlatTulis = [
+					{ value: 'kertas', text: 'Kertas' },
+					{ value: 'map', text: 'Map' },
+					{ value: 'pulpen', text: 'Pulpen' },
+				];
+
+				if (category === 'baju') {
+					makeSubCategory(subCategoryContent, optionsBaju);
+				} else if (category === 'elektronik') {
+					makeSubCategory(subCategoryContent, optionsElektronik);
+				} else if (category === 'alat-tulis') {
+					makeSubCategory(subCategoryContent, optionsAlatTulis);
+				}
+			}
+
+			function wholesaleControl() {
+				wholesaleSelector = document.forms['productForm']['product-wholesale'];
+				wholesalePrice = document.forms['productForm']['product-wholesale-price'];
+				wholesalePrice.disabled = false;
+
+				if (wholesaleSelector.value === 'tidak') {
+					wholesalePrice.disabled = true;
+					wholesalePrice.value = '';
+				}
+			}
+
+			function validateName() {
+				name = document.forms['productForm']['product-name'].value;
+				nameError = document.getElementById('error-name');
+
+				nameError.innerHTML = '';
+
+				if (name.length === 0) {
+					nameError.innerHTML = 'Nama produk harus diisi';
+					return false;
+				}
+
+				if (name.length < 5 || name.length > 30) {
+					nameError.innerHTML = 'Nama produk harus berukuran 5-30 karakter';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateDesc() {
+				desc = document.forms['productForm']['product-desc'].value;
+				descError = document.getElementById('error-desc');
+
+				descError.innerHTML = '';
+
+				if (desc.length === 0) {
+					descError.innerHTML = 'Deskripsi produk harus diisi';
+					return false;
+				}
+
+				if (desc.length < 5 || desc.length > 100) {
+					descError.innerHTML = 'Deskripsi produk harus berukuran 5-100 karakter';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateCategory() {
+				category = document.forms['productForm']['product-category'].value;
+				categoryError = document.getElementById('error-category');
+
+				categoryError.innerHTML = '';
+
+				if (category === 'default') {
+					categoryError.innerHTML = 'Kategori produk harus dipilih';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateSubCategory() {
+				subCategory = document.forms['productForm']['product-sub-category'].value;
+				subCategoryError = document.getElementById('error-sub-category');
+
+				subCategoryError.innerHTML = '';
+
+				if (subCategory === 'default') {
+					subCategoryError.innerHTML = 'Sub-kategori produk harus dipilih';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateUnitPrice() {
+				unitPrice = document.forms['productForm']['product-unit-price'].value;
+				unitPriceError = document.getElementById('error-unit-price');
+
+				unitPriceError.innerHTML = '';
+
+				if (unitPrice.length === 0) {
+					unitPriceError.innerHTML = 'Harga satuan produk harus diisi';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateWholesale() {
+				wholesale = document.forms['productForm']['product-wholesale'];
+				wholesaleError = document.getElementById('error-wholesale');
+
+				wholesaleError.innerHTML = '';
+
+				if (!wholesale[0].checked && !wholesale[1].checked) {
+					wholesaleError.innerHTML = 'Ketersediaan pembelian grosir produk harus diisi';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateWholesalePrice() {
+				wholesalePrice = document.forms['productForm']['product-wholesale-price'];
+				wholesalePriceError = document.getElementById('error-wholesale-price');
+
+				wholesalePriceError.innerHTML = '';
+
+				if (wholesalePrice.value.length === 0 && wholesalePrice.disabled === false) {
+					wholesalePriceError.innerHTML = 'Harga grosir produk harus diisi';
+					return false;
+				}
+
+				return true;
+			}
+
+			function validateCheckBoxes() {
+				checkboxes = document.forms['productForm']['product-expedition'];
+				checkedCount = 0;
+				checkboxError = document.getElementById('error-expedition');
+
+				checkboxError.innerHTML = '';
+
+				for (i = 0; i < checkboxes.length; i++) {
+					if (checkboxes[i].checked) {
+						checkedCount++;
+					}
+				}
+
+				if (checkedCount >= 3) {
+					return true;
+				} else {
+					checkboxError.innerHTML = 'Pilih minimal 3 (tiga) ekspedisi';
+					return false;
+				}
+			}
+
+			function validateForm() {
+				isProductNameValid = validateName();
+				isProductDescValid = validateDesc();
+				isCategoryValid = validateCategory();
+				isSubCategoryValid = validateSubCategory();
+				isUnitPriceValid = validateUnitPrice();
+				isWholesaleValid = validateWholesale();
+				isWholesalePriceValid = validateWholesalePrice();
+				isExpeditionValid = validateCheckBoxes();
+				isCaptchaValid = checkCaptcha();
+
+				return (
+					isProductNameValid &&
+					isProductDescValid &&
+					isCategoryValid &&
+					isSubCategoryValid &&
+					isUnitPriceValid &&
+					isWholesaleValid &&
+					isWholesalePriceValid &&
+					isExpeditionValid &&
+					isCaptchaValid
+				);
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container mt-5">
+			<h1 class="mb-4">Form Tambah Data Produk</h1>
+			<form
+				name="productForm"
+				method="post"
+				onsubmit="return validateForm()"
+				onreset="clearSubCategory(); clearErrorMessages(); resetCaptcha();"
+			>
+				<div class="form-group">
+					<label for="product-name">Nama Produk</label>
+					<input
+						type="text"
+						id="product-name"
+						name="product-name"
+						class="form-control"
+						placeholder="Masukkan nama produk"
+					/>
+					<span id="error-name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="product-desc">Deskripsi Produk</label>
+					<textarea
+						name="product-desc"
+						class="form-control"
+						rows="5"
+						placeholder="Masukkan Deskripsi Produk"
+					></textarea>
+					<span id="error-desc" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="product-category">Kategori</label>
+					<select
+						id="product-category"
+						name="product-category"
+						class="form-control"
+						onchange="subCategoryDropdown()"
+					>
+						<option value="default" disabled selected>--Pilih Kategori--</option>
+						<option value="baju">Baju</option>
+						<option value="elektronik">Elektronik</option>
+						<option value="alat-tulis">Alat Tulis</option>
+					</select>
+					<span id="error-category" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="product-sub-category">Sub-Kategori</label>
+					<select
+						id="subDropdown"
+						name="product-sub-category"
+						class="form-control"
+						disabled
+					>
+						<option value="default" disabled selected>--Pilih Sub-Kategori--</option>
+					</select>
+					<span id="error-sub-category" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="product-unit-price">Harga Satuan</label>
+					<input
+						type="number"
+						id="product-unit-price"
+						name="product-unit-price"
+						class="form-control"
+						placeholder="Masukkan harga satuan"
+					/>
+					<span id="error-unit-price" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label>Grosir</label> <br />
+					<div class="form-check form-check-inline">
+						<input
+							type="radio"
+							id="product-wholesale-ya"
+							name="product-wholesale"
+							value="ya"
+							class="form-check-input"
+							onchange="wholesaleControl()"
+						/>
+						<label class="form-check-label" for="product-wholesale-ya">Ya</label>
+					</div>
+					<br />
+					<div class="form-check form-check-inline">
+						<input
+							type="radio"
+							id="product-wholesale-tidak"
+							name="product-wholesale"
+							value="tidak"
+							class="form-check-input"
+							onchange="wholesaleControl()"
+						/>
+						<label class="form-check-label" for="product-wholesale-tidak">Tidak</label>
+					</div>
+					<br />
+					<span id="error-wholesale" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="product-wholesale-price">Harga Grosir</label>
+					<input
+						type="number"
+						id="product-wholesale-price"
+						name="product-wholesale-price"
+						class="form-control"
+						placeholder="Masukkan harga grosir"
+						disabled
+					/>
+					<span id="error-wholesale-price" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label>Jasa Kirim</label>
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="product-expedition-jne"
+							name="product-expedition"
+							value="jne"
+							class="form-check-input"
+						/>
+						<label for="product-expedition-jne" class="form-check-label">JNE</label>
+					</div>
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="product-expedition-tiki"
+							name="product-expedition"
+							value="tiki"
+							class="form-check-input"
+						/>
+						<label for="product-expedition-tiki" class="form-check-label">TIKI</label>
+					</div>
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="product-expedition-si-cepat"
+							name="product-expedition"
+							value="si-cepat"
+							class="form-check-input"
+						/>
+						<label for="product-expedition-si-cepat" class="form-check-label"
+							>SiCepat</label
+						>
+					</div>
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="product-expedition-ninja"
+							name="product-expedition"
+							value="ninja"
+							class="form-check-input"
+						/>
+						<label for="product-expedition-ninja" class="form-check-label"
+							>Ninja Express</label
+						>
+					</div>
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="product-expedition-wahana"
+							name="product-expedition"
+							value="wahana"
+							class="form-check-input"
+						/>
+						<label for="product-expedition-wahana" class="form-check-label"
+							>Wahana</label
+						>
+					</div>
+					<span id="error-expedition" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="captcha-form">Captcha</label>
+					<div class="row">
+						<div class="col-12">
+							<span
+								id="captcha"
+								class="form-control"
+								style="font-weight: bold; background-color: #e9ecef"
+							></span>
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col-12">
+							<input
+								type="text"
+								id="captcha-form"
+								name="captcha-form"
+								class="form-control"
+								placeholder="Masukkan captcha"
+								maxlength="5"
+							/>
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col-12">
+							<span id="error-captcha" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Submit" />
+					<input type="reset" class="btn btn-secondary" value="Reset" />
+				</div>
+			</form>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</body>
+</html>

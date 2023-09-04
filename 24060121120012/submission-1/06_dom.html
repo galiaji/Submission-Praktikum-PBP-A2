@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- 
+Nama : Emerio Kevin Aryaputra
+NIM  :24060121120012
+Lab  : PBP A2
+Tanggal : 4 September 2023
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Belajar Javascript</title>
+	</head>
+	<body>
+		<p>Klik button "Create New Element" untuk membuat elemen BUTTON baru</p>
+		<button onclick="myFunction01()">Create New Element</button>
+
+		<ul id="myList">
+			<li>HTML</li>
+			<li>CSS</li>
+			<li>Javascript</li>
+		</ul>
+
+		<p>Klik button "Remove Child Element" untuk menghapus child element list</p>
+		<button onclick="myFunction02()">Remove Child Element</button>
+
+		<script>
+			myFunction01 = () => {
+				btn = document.createElement('button');
+				t = document.createTextNode('CLICK ME');
+				btn.appendChild(t);
+				document.body.appendChild(btn);
+			};
+
+			myFunction02 = () => {
+				list = document.getElementById('myList');
+				list.removeChild(list.firstElementChild);
+			};
+		</script>
+	</body>
+</html>
