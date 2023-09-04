@@ -1,0 +1,178 @@
+<!-- 
+Nama : Dorino Baharson
+NIM  :24060121130090
+lab  : PBP A2
+Tanggal : 1/9/2023
+Deskripsi : Pembuatan form dengan javascript pada HTML dengan beberapa pernyataan kondisional 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tugas Form</title>
+    <h1>Form Tambah Produk</h1>
+    
+</head>
+
+<body>
+    <form name="formProduk" onsubmit="return validateForm()" method="post">
+    <table>
+
+        <tr>
+            <td><label>Nama Produk</label></td>
+        <td><input type="text" name="fnamaProduk" required="required" /></td>
+        </tr>
+
+        <tr>
+            <td><label>Deskripsi</label></td>
+            <td><textarea id="Deskripsi" name="Deskripsi" required="required"> </textarea></td>
+        </tr>
+
+        <tr>
+            <td><label>Kategori</label></td>
+            <td>
+                <select name="fKategori" id="fKategori" onchange="updateSubCategories()">
+                    <option value="0">Pilih Kategori</option>
+                    <option value="1">Baju</option>
+                    <option value="2">Elektronik</option>
+                    <option value="3">Alat Tulis</option>
+                </select>
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td><label>Sub Kategori</label></td>
+            <td><select name="fSubKategori" id="fSubKategori" class="align-right">
+                <option value="0">Pilih Sub Kategori</option> </select></td>
+        </tr><br />
+        
+        <tr>
+        <td><label>Harga Satuan</label></td>
+        <td><input type="number" name="fHargaSatuan" required="required"></td>
+        </tr><br />
+
+        <tr>
+        <td><label>Grosir</label></td>
+        <td><input type="radio" name="fGrosir" id="fGrosir" value="Ya" onchange="cekGrosir()" class="align-right"> Ya<br />
+        <input type="radio" name="fGrosir" value="Tidak" onchange="cekGrosir()" class="align-right"> Tidak
+        <br /></td> 
+        </tr>
+        
+        <tr>
+        <td><label>Harga Grosir</label></td>
+        <td><input type="number" id="fHargaGrosir" name="fHargaGrosir" class="align-right"/><br /></td>
+        </tr>
+
+        <tr>
+        <td><label>Jasa Kirim</label><br /></td>
+        <td>
+            <input type="checkbox" name="fJasaKirim[]" value="1" class="align-right"> JNE<br />
+            <input type="checkbox" name="fJasaKirim[]" value="2" class="align-right"> TIKI<br />
+            <input type="checkbox" name="fJasaKirim[]" value="3" class="align-right"> POS<br />
+            <input type="checkbox" name="fJasaKirim[]" value="4" class="align-right"> ESL<br />
+            <input type="checkbox" name="fJasaKirim[]" value="5" class="align-right"> RPX<br />
+            </td>
+        </tr>
+        
+        <tr>
+        <td><label>Captcha</label> </td>
+        <td><input type="text" id="fCaptcha" name="fCaptcha" required="required" /></td>
+        <td><input type="text" id="CaptchaAns" name="CaptchaAns" required="required"> <br /></td>
+        </tr>
+
+        <tr>
+        <td><input type="submit" value="Submit" ></td>
+        <td><input type="reset" value="Reset"></td>
+        </tr>
+    </form>
+    </table>
+    <script>
+        function validateForm(){
+            var x = document.forms["formProduk"]["fnamaProduk"].value;
+            var y = document.forms["formProduk"]["Deskripsi"].value;
+            var selectedJasaKirim = document.querySelectorAll('input[name="fJasaKirim[]"]:checked').length;
+            var jawabanChaptcha = document.getElementById("CaptchaAns").value;
+            if(x.length<5 ||x.length>30 || x == null || x == "") {
+                alert("Harus diisi, minimal 5 karakter, maksimal 30 karakter");
+                return false;
+            }
+            else if(y.length<5 ||y.length>100 || y == null || y == "") {
+                alert("Harus diisi, minimal 5 karakter, maksimal 100 karakter");
+                return false;
+            }
+            else if(selectedJasaKirim<3) {
+                alert("Harus diisi, minimal 3 jasa kirim");
+                return false;
+            }
+            else if(jawabanChaptcha != document.getElementById("fCaptcha").value){
+                alert("Jawaban captcha salah");
+                return false;
+            }
+        }
+
+        function updateSubCategories() {
+            var selectedCategory = document.getElementById("fKategori").value;
+            var subCategorySelect = document.getElementById("fSubKategori");
+            subCategorySelect.innerHTML = ""; 
+
+            var defaultOption = document.createElement("option");
+            defaultOption.value = "0";
+            defaultOption.text = "Pilih Sub Kategori";
+            subCategorySelect.appendChild(defaultOption);
+
+            if (selectedCategory == "1") {
+                var BajuPria = new Option("Baju Pria", "1");
+                var BajuWanita = new Option("Baju Wanita", "2");
+                var BajuAnak = new Option("Baju Anak", "3");
+                subCategorySelect.add(BajuPria);
+                subCategorySelect.add(BajuWanita);
+                subCategorySelect.add(BajuAnak);
+            } else if (selectedCategory == "2") {
+                var MesinCuci = new Option("Mesin Cuci", "1");
+                var kulkas = new Option("Kulkas", "2");
+                var ac = new Option("AC", "3");
+                subCategorySelect.add(MesinCuci);
+                subCategorySelect.add(kulkas);
+                subCategorySelect.add(ac);
+            } else if (selectedCategory == "3") {
+                var kertas = new Option("Kertas", "1");
+                var map = new Option("Map", "2");
+                var pulpen = new Option("Pulpen", "3");
+                subCategorySelect.add(kertas);
+                subCategorySelect.add(map);
+                subCategorySelect.add(pulpen);
+            }
+        }
+
+        function cekGrosir(){
+            var x = document.forms["formProduk"]["fGrosir"].value;
+            if(x == "Ya"){
+                document.getElementById("fHargaGrosir").disabled = false;
+            }
+            else{
+                document.getElementById("fHargaGrosir").disabled = true;
+            }
+        }
+
+        function generateChapctha(){
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            var captcha = '';
+            for (var i = 0; i < 6; i++) {
+                var randomIndex = Math.floor(Math.random() * characters.length);
+                captcha += characters.charAt(randomIndex);
+            }
+            document.getElementById("fCaptcha").value = captcha;
+            document.getElementById("fCaptcha").disabled = true;
+        }
+
+
+        window.onload = function() {
+            generateChapctha();
+        };
+
+
+    </script>
+</body>
+
+</html>
