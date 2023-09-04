@@ -1,0 +1,204 @@
+<!--Nama: Sheva Ivanda Pratama
+    NIM : 24060120140089
+    Lab : A2-->
+<!DOCTYPE html>
+<html><head>
+    <title>Form Tambah Data Produk</title>
+  <script>
+  function validateForm() {
+      if(document.getElementById("name").value == ""){
+          alert("isi nama terlebih dahulu.");
+          document.forms["formRegistration"]["name"].focus();
+          return false;
+      }
+
+      if(document.forms["formRegistration"]["deskripsi"].value == ""){
+          alert("isi dedkripsi terlebih dahulu.");
+          document.forms["formRegistration"]["deskripsi"].focus();
+          return false;
+      }
+
+      if(document.forms["formRegistration"]["SKategori"].value == ""){
+          alert("isi sub kategori terlebih dahulu.");
+          document.forms["formRegistration"]["SKategori"].focus();
+          return false;
+      }
+
+      if(document.forms["formRegistration"]["HSatuan"].value == ""){
+          alert("isi harga satuan terlebih dahulu.");
+          document.forms["formRegistration"]["HSatuan"].focus();
+          return false;
+      }else if(isNaN(document.forms["formRegistration"]["HSatuan"].value)){
+          alert("harga satuan harus berupa angka");
+          document.forms["formRegistration"]["HSatuan"].value = "";
+          document.forms["formRegistration"]["HSatuan"].focus();
+          return false;
+      }
+      
+      if(document.forms["formRegistration"]["grosir"].value == ""){
+          alert("Pilih grosir atau tidak.");
+          return false;
+      }
+
+      if(document.forms["formRegistration"]["HGrosir"].value == ""){
+          alert("isi harga grosir terlebih dahulu.");
+          document.forms["formRegistration"]["HGrosir"].focus();
+          return false;
+      }else if(isNaN(document.forms["formRegistration"]["HGrosir"].value)){
+          alert("harga grosir harus berupa angka");
+          document.forms["formRegistration"]["HGrosir"].value = "";
+          document.forms["formRegistration"]["HGrosir"].focus();
+          return false;
+      }
+
+      var JasaKirim = document.forms["formRegistration"]["JasaKirim[]"];
+      var checked;
+      checked=0;
+      for(let i=0;i<4;i++){
+        if(JasaKirim[i].checked == true){
+            checked++;
+        }
+      }
+	  if(checked<3){
+		  alert("isi minimal 3 pilihan.");
+		  return false;
+	  }
+
+      if(document.forms["formRegistration"]["captcha_input"].value != document.forms["formRegistration"]["captcha_text"].value){
+          alert("ketikkan captcha dengan benar.");
+          return false;
+      }
+      return true;
+  }
+
+  function disableHGrosir(){
+      var HGrosir = document.getElementById("HGrosir");
+      if(document.forms["formRegistration"]["grosir"].value=="Tidak"){
+        HGrosir.disabled=true;
+      }else{
+        HGrosir.removeAttribute("disabled");
+      }
+      return true;
+  }
+  
+  function get_SKategori(){
+      var kategori = document.forms["formRegistration"]["kategori"].value;
+      if(kategori == "Baju"){
+          document.getElementById("SKategori").innerHTML = 
+          '<option value="Baju Pria">Baju Pria</option>' +
+          '<option value="Baju Wanita">Baju Wanita</option>' +
+          '<option value="Baju Anak">Baju Anak</option>';
+      }
+      if(kategori == "Elektronik"){
+          document.getElementById("SKategori").innerHTML = 
+          '<option value="Mesin Cuci">Mesin Cuci</option>' +
+          '<option value="Kulkas">Kulkas</option>' +
+          '<option value="AC">AC</option>';
+      }
+      if(kategori == "Alat Tulis"){
+          document.getElementById("SKategori").innerHTML = 
+          '<option value="Kertas">Kertas</option>' +
+          '<option value="Map">Map</option>' +
+          '<option value="Pulpen">Pulpen</option>';
+      }
+  }
+  
+  //Generates the captcha function
+  function generateCaptcha(){
+    var a = String.fromCharCode(Math.floor((Math.random()*26)+65));
+    var b = String.fromCharCode(Math.floor((Math.random()*26)+97));
+    var c = String.fromCharCode(Math.floor((Math.random()*26)+65));
+    var d = String.fromCharCode(Math.floor((Math.random()*26)+97));
+    var e = String.fromCharCode(Math.floor((Math.random()*26)+65));
+    var code = a + b +c + d + e;
+    document.forms["formRegistration"]["captcha_text"].value = code;
+  }
+          
+  function removeSpaces(string){
+      return string.split(' ').join('');
+  }
+  </script>
+  </head>
+  
+  <body onload="generateCaptcha()" data-new-gr-c-s-check-loaded="14.1075.0" data-gr-ext-installed=""> 
+  <h2>Form Tambah Data Produk</h2>
+  <form id="formRegistration" method="GET" autocomplete="on" action="" onsubmit="return validateForm()">
+  <table>
+        <tbody><tr>
+          <td>Nama Produk</td>
+          <td>:</td>
+          <td><input type="text" id="name" name="name" size="30" minlength="5" maxlength="30"></td>
+        </tr>
+        <tr>
+            <td>Deskripsi</td>
+            <td>:</td>
+            <td><textarea name="deskripsi" rows="5" cols="30" minlength="5" maxlength="100"></textarea></td>
+        </tr>
+        <tr>
+            <td>Kategori</td>
+            <td>:</td>
+            <td><select name="kategori" onchange="get_SKategori()">
+                <option value="">--Pilih Kategori--</option>
+                <option value="Baju">Baju</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Alat Tulis">Alat Tulis</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Sub Kategori</td>
+            <td>:</td>
+            <td><select name="SKategori" id="SKategori">
+                <option value="">--Pilih Sub Kategori--</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Harga Satuan</td>
+            <td>:</td>
+            <td><input type="text" name="HSatuan" size="10"></td>
+        </tr>
+        <tr>
+            <td>Grosir</td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="grosir" value="Ya" onclick="disableHGrosir()">Ya <br>
+                <input type="radio" name="grosir" value="Tidak" onclick="disableHGrosir()">Tidak
+            </td>
+        </tr>
+        <tr>
+            <td>Harga Grosir</td>
+            <td>:</td>
+            <td><input type="text" name="HGrosir" id="HGrosir" size="10"></td>
+        </tr>
+        <tr>
+            <td>Jasa Kirim</td>
+            <td>:</td>
+            <td>
+                <input type="checkbox" name="JasaKirim[]" value="JNE">JNE<br>
+                <input type="checkbox" name="JasaKirim[]" value="TIKI">TIKI<br> 
+                <input type="checkbox" name="JasaKirim[]" value="SiCepat">SiCepat<br> 
+                <input type="checkbox" name="JasaKirim[]" value="Ninja Express">Ninja Express<br>
+                <input type="checkbox" name="JasaKirim[]" value="Wahana">Wahana<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Captcha</td>
+            <td>:</td>
+            <td>
+                <input type="text" name="captcha_text" size="10" disabled="">
+                <input type="text" name="captcha_input" size="10">
+            </td>
+        </tr>
+        <script>
+            
+        </script>
+        <tr>
+            <td colspan="3"><br><input type="submit" name="submit" value="Submit">&nbsp; 
+            <input type="reset" name="reset" value="Reset"></td>
+        </tr>
+  </tbody></table>
+  </form>
+  
+  
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
