@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Produk</title>
+    <!-- Ini hasil pekerjaan saya kak, mohon maaf sekali belum jadi, ada beberapa juga yang lihat 
+        referensi tugas temen dan kating -->
+</head>
+<body>
+    <h1>Form Tambah Data Produk</h1>
+    <form name="form_barang">
+        <table>
+            <tr>
+                <td>Nama Produk</td>
+                <td><input type="text" name="namaProduk" required="required" minlength="5" maxlength="30"><br/></td>
+                <td><span id="errNamaProduk"></span> <br /></td>
+            </tr>
+    
+            <tr>
+                <td>Deskripsi</td>
+                <td><textarea name="deskripsi" id="deskripsi" cols="20" rows="5" required="required" minlength="5" maxlength="100"></textarea></td>
+                <td><span id="errDeskripsi"></span> <br /></td>
+            </tr>
+
+            <tr>
+                <td><label for="kategori">Kategori</label></td>
+                <td>
+                    <select name="kategori" id="kategori" required="required" onchange="get_kategori()">
+                        <option value="">--Pilih Kategori--</option>
+                        <option value="baju">Baju</option>
+                        <option value="elektronik">Elektronik</option>
+                        <option value="alat_tulis">Alat Tulis</option>
+                    </select>
+                </td>
+                <td><span id="errKategori"></span> <br /></td>
+            </tr>
+            <tr>
+                <td><label for="sub_kategori">Sub Kategori</label></td>
+                <td>
+                    <select name="sub_kategori" id="sub_kategori" required="required">
+                        <option value="o">--Pilih Sub Kategori--</option>
+                    </select>
+                </td>
+                <td><span id="errSubKategori"></span> <br /></td>
+            </tr>
+            <tr>
+            <tr>
+                <td>Harga Satuan</td>
+                <td><input type="text" name="hargaSatuan" required="required" ><br/></td>
+            </tr>
+            <tr>
+                <td>Grosir</td>
+                <td>
+                    <input type="radio" id="Ya" name="grosir" value="Ya">
+                    <label for="Ya">Ya</label> <br />
+                    <input type="radio" id="Tidak" name="grosir" value="Tidak">
+                    <label for="Ya">Tidak</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Harga Grosir</td>
+                <td><input type="text" name="hargaGrosir" required="required" ><br/></td>
+            </tr>
+            <tr>
+                <td>Jasa Kirim</td>
+                <td>
+                    <input type="checkbox" id="JNE" name="jasaKirim[]" value="JNE">
+                    <label for="JNE">JNE</label> <br />
+                    <input type="checkbox" id="TIKI" name="jasaKirim[]" value="TIKI">
+                    <label for="TIKI">TIKI</label> <br />
+                    <input type="checkbox" id="SiCepat" name="jasaKirim[]" value="SiCepat">
+                    <label for="SiCepat">SiCepat</label> <br />
+                    <input type="checkbox" id="Ninja_Express" name="jasaKirim[]" value="Ninja Express">
+                    <label for="NinjaExpress">Ninja Express</label> <br />
+                    <input type="checkbox" id="Wahana" name="jasaKirim[]" value="Wahana">
+                    <label for="Wahana">Wahana</label> 
+                </td>
+            </tr>
+            <tr>
+                <td>Captcha</td>
+                <td><input id="captcha" type="text" name="captcha" disabled></td>
+                <td><input type="text" name="captchaInp" id="captchaInp"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="submit" onclick="validateForm()">
+                    <input type="button" value="reset" onclick="clear()">
+                </td>
+            </tr>
+        </table>
+        
+
+    </form>
+    <script>
+        function validateForm(){
+            const w = document.forms["form_barang"]["namaProduk"].value;
+            const x = document.forms["form_barang"]["deskripsi"].value;
+            const y = document.forms["form_barang"]["kategori"].value;
+            const z = document.forms["form_barang"]["subkategori"].value;
+
+            if(x.checkValidity() == false || y.checkValidity() == false || w.checkValidity() == false || z.checkValidity() == false){
+                document.getElementById("errNamaProduk").innerHTML = w.validationMessage;
+                document.getElementById("errDeskripsi").innerHTML = x.validationMessage;
+                document.getElementById("errKategori").innerHTML = y.validationMessage;
+                document.getElementById("errSubKategori").innerHTML = z.validationMessage;
+                return false;
+            }
+
+        }
+        function get_kategori(){
+            var kategori = document.forms['form_barang']['kategori'].value;
+
+            if (kategori == 'baju'){
+                document.getElementById('sub_kategori').innerHTML =
+                '<option value="">-- Pilih Sub Kategori --</option>' +
+                '<option value="bajuPria">Baju Pria</option>'+
+                '<option value="bajuWanita">Baju Wanita</option>'+
+                '<option value="bajuAnak">Baju Anak</option>';
+            }
+            if (kategori == 'elektronik'){
+                document.getElementById('sub_kategori').innerHTML =
+                '<option value="">-- Pilih Sub Kategori --</option>' +
+                '<option value="mesinCuci">Mesin Cuci</option>'+
+                '<option value="kulkas">Kulkas</option>'+
+                '<option value="AC">AC</option>';
+            }
+            if (kategori == 'alat_tulis'){
+                document.getElementById('sub_kategori').innerHTML =
+                '<option value="">-- Pilih Sub Kategori --</option>' +
+                '<option value="kertas">Kertas</option>'+
+                '<option value="map">Map</option>'+
+                '<option value="pulpen">Pulpen</option>';
+            }
+        }
+    </script>
+</body>
+</html>
+
