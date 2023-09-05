@@ -1,0 +1,37 @@
+<!-- 
+Nama : Dorino Baharson
+NIM  :24060121130090
+lab  : PBP A2
+Tanggal : 1/9/2023
+Deskripsi : Validasi form login menggunakan javascript
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Login</title>
+    <script>
+        function validateForm(){
+            var x = document.forms["formLogin"]["fusername"].value;
+            var y = document.forms["formLogin"]["fpassword"].value;
+            if(x.checkValidity() == false || y.checkValidity() == false){
+                document.getElementById(errUsername).innerHTML = x.validationMessage;
+                document.getElementById(errPassword).innerHTML = y.validationMessage;
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form name="formLogin" action="process.php" method="post">
+    Name : <input type="email" name="fusername" required="required" maxlength="30" />
+    <span id="errUsername"></span><br />
+    Password : <input type="password" name="fpassword" required="required" maxlength="30" />
+    <span id="errPassword"></span><br />
+    <input type="submit" value="submit" onclick="validateForm()">
+    </form>
+</body>
+
+</html>
