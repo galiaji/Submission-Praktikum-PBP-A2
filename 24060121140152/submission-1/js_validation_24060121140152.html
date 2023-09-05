@@ -1,0 +1,155 @@
+<!--
+    Name: Adri Audifirst
+    NIM: 24060121140152
+    Date: 5 September 2023
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Tambah Data Produk</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div class="container">
+        <form name="form" action="#" method="post">
+          <h1>Form Tambah Data Produk</h1>
+          <table>
+            <tr>
+              <td><label for="fname">Nama Produk:</label></td>
+              <td>
+                <input
+                  type="text"
+                  name="fname"
+                  required="required"
+                  class="smWidth"
+                />
+              </td>
+              <td><span id="errName"></span></td>
+            </tr>
+            <tr>
+              <td><label for="fdesc">Deskripsi:</label></td>
+              <td>
+                <textarea
+                  required="required"
+                  name="fdesc"
+                  id="fdesc"
+                  rows="10"
+                  class="smWidth"
+                ></textarea>
+              </td>
+              <td><span id="errDesc"></span></td>
+            </tr>
+            <tr>
+              <td><label for="fcat">Kategori:</label></td>
+              <td>
+                <select
+                  id="fcat"
+                  onchange="updateSubKategori()"
+                  required="required"
+                >
+                  <option value="" disabled selected>--Pilih Kategori--</option>
+                  <option value="Baju">Baju</option>
+                  <option value="Elektronik">Elektronik</option>
+                  <option value="Alat Tulis">Alat Tulis</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="fsubcat">Sub Kategori:</label></td>
+              <td>
+                <select id="fsubcat" required="required">
+                  <option value="" disabled selected>
+                    --Pilih Sub Kategori--
+                  </option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="fprice">Harga Satuan:</label></td>
+              <td>
+                <input
+                  type="number"
+                  id="fprice"
+                  name="fprice"
+                  required="required"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="fwholesales">Grosir:</label></td>
+              <td>
+                <input
+                  type="radio"
+                  id="fwholesalesYes"
+                  name="fwholesales"
+                  value="Ya"
+                  checked="checked"
+                />Ya
+                <br />
+                <input
+                  type="radio"
+                  id="fwholesalesNo"
+                  name="fwholesales"
+                  value="Tidak"
+                />Tidak
+              </td>
+            </tr>
+            <tr>
+              <td><label for="fwholeprice">Harga Grosir:</label></td>
+              <td>
+                <input type="number" id="fwholeprice" name="fwholeprice" />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="fwholeprice">Jasa Kirim:</label></td>
+              <td>
+                <input type="checkbox" />JNE <br /><input
+                  type="checkbox"
+                />TIKI<br /><input type="checkbox" />SiCepat<br /><input
+                  type="checkbox"
+                />Ninja Express<br /><input type="checkbox" />Wahana
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="fcaptcha">Captcha:</label></td>
+              <td>
+                <div class="captchaContainer">
+                  <input
+                    type="text"
+                    id="fcaptchatext"
+                    name="fcaptchatext"
+                    disabled
+                  />
+                  <input
+                    type="text"
+                    id="fcaptchaanswer"
+                    name="fcaptchaanswer"
+                    placeholder="Masukkan Captcha"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="submit"
+                  value="Submit"
+                  onclick="return validateForm(event)"
+                />
+                <input type="reset" id="reset" name="reset" />
+              </td>
+            </tr>
+          </table>
+        </form>
+        <footer>
+          <p><strong>Made With &#x1F9E1; by Adri Audifirst</strong></p>
+        </footer>
+      </div>
+    </div>
+    <script src="/script/app.js"></script>
+  </body>
+</html>
