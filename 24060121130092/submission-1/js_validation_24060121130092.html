@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tugas Praktikum 1 PBP</title>
+    <script src="index.js"></script>
+  </head>
+  <body onload="generateCaptcha()">
+    <div class="form" style="border-style: solid; padding: 20px; padding-top: 5px; float: left;">
+      <h1>Form Tambah Data Produk</h1>
+      <form id="formDataProduk" autocomplete="on" method="GET" onsubmit="return validateForm()">
+        <table>
+          <tr>
+            <td>Nama Produk</td>
+            <td><input type="text" id="NamaProduk" name="NamaProduk" minlength="5" maxlength="30"></td>
+          </tr>
+          <tr>
+            <td>Deskripsi</td>
+            <td>
+              <textarea id="DeskripsiProduk" minlength="5" maxlength="100"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>Kategori</td>
+            <td><select id="kategori" size="1" onchange="SubCategory(this.value)">
+              <option value="" disabled selected>--Pilih Kategori--</option>
+              <option value="Baju">Baju</option>
+              <option value="Elektronik">Elektronik</option>
+              <option value="AlatTulis">Alat Tulis</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Sub Kategori</td>
+            <td>
+                <select id="categoryselect" size="1">
+                    <option value="" disabled selected>--Pilih SubKategori--</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+          <td>Harga Satuan</td>
+          <td><input type="number" id="hargasatuan" name="hargasatuan"></td>
+        </tr>
+        <tr>
+          <td>Grosir</td>
+          <td>
+            <label for="Ya"><input type="radio" id="Ya" name="grosir" onclick="enable()">Ya</label><br/>
+            <label for="Tidak"><input type="radio" id="Tidak" name="grosir" onclick="enable()">Tidak</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Harga Grosir</td>
+          <td><input type="number" id="HargaGrosir" name="HargaGrosir" disabled></td>
+        </tr>
+        <tr>
+          <form id="formjasakirim" method="post">
+            <td>Jasa Kirim</td>
+            <td>
+              <input type="checkbox" id="JNE" name="section" value="JNE">
+              <label for="JNE">JNE</label><br>
+              <input type="checkbox" id="TIKI" name="section" value="TIKI">
+              <label for="TIKI">TIKI</label><br>
+              <input type="checkbox" id="siCepat" name="section" value="siCepat">
+              <label for="siCepat">siCepat</label><br>
+              <input type="checkbox" id="Ninja Express" name="section" value="Ninja Express">
+              <label for="Ninja Express">Ninja Express</label><br>
+              <input type="checkbox" id="Wahana" name="section" value="Wahana">
+              <label for="Wahana">Wahana</label><br>
+            </td>
+        <tr>
+          <td><label for="captcha">Captcha</label></td>
+          <td><input type="text" id="maincaptha" name="maincaptcha" disabled></td>
+          <td><input type="text" id="Captcha" name="Captcha"></td>
+        </tr>
+          </form>
+        </table>
+        <br/>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+      </form>
+    </div>
+  </body>
+</html>
