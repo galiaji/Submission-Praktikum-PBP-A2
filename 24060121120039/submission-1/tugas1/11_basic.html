@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Javascript</title>
+</head>
+<body>
+    <h1>Fungsi</h1>
+
+    <script>
+        const myArray = [];
+        myArray[0] = 5;
+        myArray[1] = 20;
+        myArray[2] = 15;
+
+        document.write("Jumlah seluruh elemen array adalah: " + sumArray(myArray))
+        
+        function sumArray(x){
+            let sum = 0;
+            for(let i = 0; i < x.length; i++){
+                sum = sum + x[i];
+            }
+            return sum;
+        }
+    </script>
+</body>
+</html>
