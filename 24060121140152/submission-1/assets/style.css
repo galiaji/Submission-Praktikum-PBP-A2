@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "Hubot";
+  src: url(/assets/fonts/Hubot-Sans-Regular.ttf);
+}
+
+body {
+  font-family: "Hubot";
+  font-size: medium;
+}
+
+.container {
+  border: solid black 5px;
+}
+
+h1 {
+  text-align: center;
+  background-color: #0b0b0b;
+  color: white;
+  border-radius: 10px;
+}
+
+form {
+  margin: 5px;
+  padding: 10px;
+}
+
+.smWidth {
+  width: 250px;
+}
+
+#fcaptchaanswer {
+  margin-left: 5px;
+}
+
+#wrapper {
+  margin: 0 auto;
+  width: 50%;
+}
+
+footer {
+  text-align: center;
+}
+
+span {
+  text-align: left;
+}
+
+.captchaContainer {
+  display: inline-block;
+}
+
+.captchaContainer input {
+  margin: 0;
+}
