@@ -1,0 +1,148 @@
+<!-- 
+File      : js_validation_nim.html		3/09/23
+Penulis   : Varrel / 24060121130062
+Deskripsi : Tugas pertemuan 1 mengenai implementasi JS dan DOM
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Data Produk</title>
+    <script src="js_validation_nim_script.js"></script>
+    <style>
+        .container {
+            width: 350px;
+            border: 1px solid blue;
+            padding: 10px;
+            /* margin: 10px auto; */
+        }
+
+        .title {
+            margin-top: 0px;
+            margin-right: 0px;
+            width: 350px;
+        }
+
+        form {
+            margin-right: 0px;
+            width: 350px;
+        }
+    </style>
+</head>
+
+<body onload="generateCaptcha();">
+    <div class="container">
+        <h2 class="title">Form Tambah Data Produk</h2>
+
+        <form action="action_page.html" onsubmit="alertButton()">
+            <table>
+                <tr>
+                    <td><label for="nama">Nama Produk</label></td>
+                    <td><input type="text" name="nama" id="nama" minlength="5" maxlength="30" onchange="validateNama()"
+                            required></td>
+                </tr>
+                <tr>
+                    <td><label for="deskripsi">Deskripsi</label></td>
+                    <td><textarea name="deskripsi" id="deskripsi" style="width: 175px; height: 80px;" minlength="5"
+                            maxlength="100" onchange="validateDesc()" required></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><label for="kategori">Kategori</label></td>
+                    <td>
+                        <select id="kategori" onchange="updateSubKategori()" required>
+                            <option value="">--Pilih Kategori--</option>
+                            <option value="baju">Baju</option>
+                            <option value="elektronik">Elektronik</option>
+                            <option value="alatTulis">Alat Tulis</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="subKategori">Sub Kategori</label></td>
+                    <td>
+                        <select id="subKategori" required>
+                            <option value="">--Pilih Sub Kategori--</option>
+                            <option value="bajuPria">Baju Pria</option>
+                            <option value="bajuWanita">Baju Wanita</option>
+                            <option value="bajuAnak">Baju Anak</option>
+                            <option value="mesinCuci">Mesin Cuci</option>
+                            <option value="kulkas">Kulkas</option>
+                            <option value="ac">AC</option>
+                            <option value="kertas">Kertas</option>
+                            <option value="map">Map</option>
+                            <option value="pulpen">Pulpen</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="hargaSatuan">Harga Satuan</label></td>
+                    <td><input type="number" name="hargaSatuan" id="hargaSatuan" required></td>
+                </tr>
+                <tr>
+                    <td><label for="grosir">Grosir</label></td>
+                    <td>
+                        <input type="radio" name="grosir" id="grosirYa" value="Ya" onclick="toggleHargaGrosirInput()"
+                            required>
+                        <label for="grosirYa">Ya</label>
+                        <br />
+                        <input type="radio" name="grosir" id="grosirTidak" value="Tidak"
+                            onclick="toggleHargaGrosirInput()" required>
+                        <label for="grosirTidak">Tidak</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="hargaGrosir">Harga Grosir</label></td>
+                    <td><input type="number" name="hargaGrosir" id="hargaGrosir" required></td>
+                </tr>
+                <tr>
+                    <td><label for="jasaKirim">Jasa Kirim</label></td>
+                    <td>
+                        <input class="cb" type="checkbox" name="jasaKirim" id="jasaKirim" value="JNE"
+                            onclick="deRequireCb('cb')" required>
+                        <label for="jasa1">JNE</label>
+                        <br />
+                        <input class="cb" type="checkbox" name="jasaKirim" id="jasaKirim" value="TIKI"
+                            onclick="deRequireCb('cb')" required>
+                        <label for="jasa2">TIKI</label>
+                        <br />
+                        <input class="cb" type="checkbox" name="jasaKirim" id="jasaKirim" value="SiCepat"
+                            onclick="deRequireCb('cb')" required>
+                        <label for="jasa3">SiCepat</label>
+                        <br />
+                        <input class="cb" type="checkbox" name="jasaKirim" id="jasaKirim" value="NinjaExpress"
+                            onclick="deRequireCb('cb')" required>
+                        <label for="jasa4">Ninja Express</label>
+                        <br />
+                        <input class="cb" type="checkbox" name="jasaKirim" id="jasaKirim" value="Wahana"
+                            onclick="deRequireCb('cb')" required>
+                        <label for="jasa5">Wahana</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="captcha">Captcha</label></td>
+                    <td>
+                        <input type="text" name="captchaCode" id="captchaCode" size="10" onsubmit="generateCaptcha()"
+                            disabled>
+                        <input type="text" name="captchaInput" id="captchaInput" size="10" onchange="validateCaptcha()"
+                            required>
+                    </td>
+                </tr>
+            </table>
+
+            <tr>
+                <td>
+                    <br />
+                    <button type="submit">Submit</button>
+                    <input type="reset">
+                </td>
+            </tr>
+        </form>
+    </div>
+
+</body>
+
+</html>

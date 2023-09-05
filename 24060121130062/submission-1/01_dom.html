@@ -1,0 +1,28 @@
+<!-- 
+File      : 01_dom.html		2/09/23
+Penulis   : Varrel / 24060121130062
+Deskripsi : implementasi modul pertemuan 1
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Javascript</title>
+</head>
+
+<body>
+
+    <h2>Akses elemen menggunakan getElementById</h2>
+    <p id="content">Belajar Document Object Model (DOM)</p>
+    <p id="demo"></p>
+
+    <script>
+        var x = document.getElementById("content");
+        document.getElementById("demo").innerHTML = "Isi teks :" + x.innerHTML;
+    </script>
+</body>
+
+</html>

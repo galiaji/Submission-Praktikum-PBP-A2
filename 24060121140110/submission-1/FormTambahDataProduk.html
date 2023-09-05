@@ -1,0 +1,113 @@
+<!-- 
+    Nama        : Mulya Irwansyah
+    NIM         : 24060121140110
+    Deskripsi   : Implementasi tugas Form Tambah Data Produk HTML
+ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tugas Membuat Form</title>
+    <script src="myScript.js"></script>
+</head>
+
+<body onload="generateCaptcha()">
+    <h1>Form Tambah Data Produk</h1>
+    <form id="FormTambahDataProduk" method="get" autocomplete="on" action="" onsubmit="return ValidateForm()">
+        <table>
+            <tr>
+                <td><label for="fnamaproduk">Nama Produk</label></td>
+                <td><input type="text" name="fnamaproduk" size="30" required></td>
+            </tr>
+            <tr>
+                <td><label for="Fdeskripsi">Deskripsi</label></td>
+                <td><textarea style="width: 500; height: 250;" required></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="kategori">Kategori</label></td>
+                <td>
+                    <select id="kategori" onchange="updateSubCategory()">
+                        <option value="" disabled selected>--Pilih Kategori--</option>
+                        <option value="Baju">Baju</option>
+                        <option value="Elektronik">Elektronik</option>
+                        <option value="Alat Tulis">Alat Tulis</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="Sub Kategori">Sub Kategori</label></td>
+                <td>
+                    <select id="subkategori">
+                        <option value="" disabled selected>--Pilih Sub Kategori--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="hargaSatuan">Harga Satuan</label></td>
+                <td><input type="number" name="hargaSatuan" id="hargaSatuan" required></td>
+            </tr>
+            <tr>
+                <td><label for="grosir">Grosir</label></td>
+                <td>
+                    <div>
+                        <input type="radio" name="grosir" id="grosirYa" value="Ya" onclick="toggleHargaGrosirInput()"
+                            required>
+                        <label for="grosirYa">Ya</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="grosir" id="grosirTidak" value="Tidak"
+                            onclick="toggleHargaGrosirInput()" required>
+                        <label for="grosirTidak">Tidak</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="hargaGrosir">Harga Grosir</label></td>
+                <td><input type="number" id="hargaGrosir" name="hargaGrosir" required></td>
+            </tr>
+            <tr>
+                <td><label for="fjasakirim">Jasa Kirim</label></td>
+                <td>
+                    <div>
+                        <input type="checkbox" name="fjasakirim" value="JNE">
+                        <label for="jasakirim">JNE</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="fjasakirim" value="TIKI">
+                        <label for="jasakirim">TIKI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="fjasakirim" value="SiCepat">
+                        <label for="jasakirim">SiCepat</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="fjasakirim" value="Ninja Express">
+                        <label for="jasakirim">Ninja Express</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="fjasakirim" value="Wahana">
+                        <label for="jasakirim">Wahana</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="Captha">Captha</label></td>
+                <td><input type="text" id="captchaCode" name="captchaCode" size="20" onsubmit="generateCaptcha()"
+                        disabled>
+                    <input type="text" id="captchaInput" name="captchaInput" size="20" onchange="validateCaptcha()"
+                        required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                    <input type="submit" name="submit" value="Submit" />&nbsp;
+                    <input type="reset" name="reset" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

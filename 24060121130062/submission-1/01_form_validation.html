@@ -1,0 +1,54 @@
+<!-- 
+File      : 01_form_validation.html		2/09/23
+Penulis   : Varrel / 24060121130062
+Deskripsi : implementasi modul pertemuan 1
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Login</title>
+    <script>
+        // function validateForm() {
+        //     var x = document.forms["myForm"]["username"].value;
+        //     if (x == "") {
+        //         alert("Username must be filled out");
+        //         return false;
+        //     }
+        //     var y = document.forms["myForm"]["password"].value;
+        //     if (y == "") {
+        //         alert("Password must be filled out");
+        //         return false;
+        //     }
+        // }
+
+        function validateForm() {
+            var x = document.forms["formLogin"]["fusername"].value;
+            var y = document.forms["formLogin"]["fpassword"].value;
+            if (x == "" && y == "") {
+                alert("Username dan Password harus diisi");
+                return false;
+            } else if (x == "") { //penambahan kasus lain
+                alert("Username harus diisi");
+                return false;
+            } else if (y == "") { //penambahan kasus lain
+                alert("Password harus diisi");
+                return false;
+            }
+        }   
+    </script>
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form name="formLogin" action="process.php" onsubmit="return validateForm()" method="post">
+        Name: <input type="text" name="fusername" /><br/>
+        Password: <input type="password" name="fpassword" />
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
