@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- Nama       : Tiara Fitra Ramadhani Siregar
+     Nim        : 24060121120008
+     Tanggal    : 02 September 2023
+     Lab        : PBP A2
+ -->
+<html lang="en">
+    <head>
+        <title>Form Login</title>
+    
+    <script>
+        function validateForm(){
+            var x = document.forms["formLogin"]["fusername"].value;
+            var y = document.forms["formLogin"]["fpassword"].value;
+            if(x == "" || y == ""){
+                alert("Username and password harus diisi!");
+                return false;
+            }
+        }
+    </script>
+    </head>
+
+    <body>
+        <h2>Login</h2>
+        <form name="formLogin" action="process.php" onsubmit="return validateForm()" method="post">
+        Name: <input type="text" name="fusername" /><br />
+        Password: <input type="password" name="fpassword" />
+        <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

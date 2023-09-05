@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- Nama       : Tiara Fitra Ramadhani Siregar
+     Nim        : 24060121120008
+     Tanggal    : 31 Agustus 2023
+     Lab        : PBP A2
+ -->
+<html>
+    <head>
+        <title>Belajar Javascript</title>
+        <script>
+            function hideImage(){
+                document.getElementById("imglogo").style.visibility = "hidden";
+            }
+
+            function showImage(){
+                document.getElementById("imglogo").style.visibility = "visible";
+            }
+        </script>
+    </head>
+
+    <body>
+        <h2>Hypertext Markup Language</h2>
+        <img id="imglogo" src="images/html_logo.jpeg" alt="gambar" style="width:200px;height:200px;border:0;">
+        <br />
+        <button id="btn01" type="button" onclick="hideImage()">Hide Image</button>
+        <button id="btn02" type="button" onclick="showImage()">Show Image</button>
+    </body>
+</html>
