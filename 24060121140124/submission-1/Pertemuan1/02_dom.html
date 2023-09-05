@@ -1,0 +1,28 @@
+<!-- Nama: Fitra Syamli Yudhisaputra -->
+<!-- NIM: 24060121140124 -->
+<!-- Lab: PBP A2 -->
+<!-- Deskripsi: Implementasi Code Modul Praktikum 1 -->
+<!-- Tanggal:  01/09/2023 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Javascript</title>
+</head>
+
+<body>
+
+    <h2>Akses elemen menggunakan getElementByTagName</h2>
+    <p>Belajar Javascript</p>
+    <p>Belajar Document Object Model (DOM)</p>
+    <p id="demo"></p>
+
+    <script>
+        var x = document.getElementsByTagName("p");
+        document.getElementById("demo").innerHTML = "Isi teks[0]" + x[0].innerHTML + "<br/>" + "Isi teks[1]: " + x[1].innerHTML;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!-- Nama: Fitra Syamli Yudhisaputra -->
+<!-- NIM: 24060121140124 -->
+<!-- Lab: PBP A2 -->
+<!-- Deskripsi: File HTML Form Tambah  Produk -->
+<!-- Tanggal:  02/09/2023 -->
+<!DOCTYPE HTML> 
+<html>
+<head>
+<title>Form Tambah Produk</title>
+
+<script src="./script.js"></script>
+</head> 
+
+<body onload="generateCaptcha()"> 
+<h2>Form Tambah Produk</h2>
+<form id="formTambahProduk" method="GET" autocomplete="on" action="" onsubmit="return validasiForm()">
+<table>
+	<tr>
+		<td><label for="name">Nama Produk</label></td>
+		<td><input type="text" name="name" id="name" size="30" minlength="5" maxlength="30"/></td>
+	</tr>
+	
+	<tr>
+		<td>Deskripsi</td>
+		<td><textarea name="deskripsi" rows="5" cols="30" minlength="5" maxlength="100"></textarea></td>
+	</tr>
+	<tr>
+		<td><label for="kategori">Kategori</label></td>
+		<td><select name="kategori" id="kategori" onchange="getSubCategory()">
+			<option value="">--Pilih Kategori--</option>
+			<option value="Baju">Baju</option>
+			<option value="Elektronik">Elektronik</option>
+			<option value="Alat Tulis">Alat Tulis</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td><label for="sub_kategori">Sub Kategori</label></td>
+		<td><select name="sub_kategori" id="sub_kategori">
+			<option value="">--Pilih Sub Kategori--</option>
+            <option value="Baju">Baju</option>
+			<option value="Elektronik">Elektronik</option>
+			<option value="Alat Tulis">Alat Tulis</option>
+			</select>
+		</td>
+	</tr>
+
+    <tr>
+        <td><label for="harga_satuan">Harga Satuan</label></td>
+        <td><input type="text" name="harga_satuan" id="harga_satuan" size="10"></td>
+    </tr>
+
+	<tr>
+		<td>Grosir</td>
+		<td>
+			<input id="ya" type="radio" name="grosir" onchange="isAktif()"> <label for="ya">Ya</label><br />
+			<input id="tidak" type="radio" name="grosir" onchange="isAktif()"> <label for="tidak">Tidak</label><br />
+		</td>
+	</tr>
+
+    <tr>
+		<td><label for="harga_grosir">Harga Grosir</label></td>
+        <td><input type="text" name="harga_grosir" id="harga_grosir" size="10"></td>
+    </tr>
+
+	<tr>
+		<td><label for="jasa_kirim">Jasa Kirim</label></td>
+		<td>
+			<input type="checkbox" name="jasa_kirim[]" id="JNE" value="JNE">
+			<label for="JNE">JNE</label><br />
+			<input type="checkbox" name="jasa_kirim[]" id="TIKI" value="TIKI">
+			<label for="TIKI">TIKI</label><br /> 
+			<input type="checkbox" name="jasa_kirim[]" id="SiCepat" value="SiCepat">
+			<label for="SiCepat">SiCepat</label><br /> 
+			<input type="checkbox" name="jasa_kirim[]" id="NinjaExpress" value="NinjaExpress">
+			<label for="NinjaExpress">Ninja Express</label><br /> 
+            <input type="checkbox" name="jasa_kirim[]" id="Wahana" value="Wahana">
+			<label for="Wahana">Wahana</label><br /> 
+		</td>
+	</tr>
+
+	<tr>
+		<td><label for="captcha">Captcha</label></td>
+		<td>
+		<input type="text" name="captcha_text" size="10" disabled>
+		<input type="text" name="captcha_input" id="captcha_input" size="10">
+		</td>
+	</tr>
+	<script>
+		
+	</script>
+	<tr>
+		<td colspan="2"><br><input type="submit" name="submit" value="Submit"> 
+		<input type="reset" name="reset" value="Reset">
+		</td>
+	</tr>
+
+</table>
+</form>
+</body>
+</html>
