@@ -1,0 +1,187 @@
+<DOCTYPE html>
+<!--
+    Nama Pembuat    : Duma Mora Arta Sitorus
+    NIM             : 24060121120004
+    Lab             : A2 PBP
+    Tanggal         : 4 September 2023
+    Deskripsi       : Membuat form pendataan produk sesuai modul praktikum
+-->
+    <html>
+        <head>
+            <title>Tambah produk</title>
+            <style>
+                .data-form{
+                    display: flex;
+                    margin-top: 5px;
+                    margin-left: 3px;
+                }
+                .tombol{
+                    margin: 25px 25px 15px 10px;
+                }
+
+                label{
+                    align-self: center;
+                    margin: 3px;
+                    width: 100px;
+                }
+            </style>
+            
+        </head>
+
+        <body onload="generateCaptcha()">
+            <h2>Form Tambah Data Produk</h2>
+            <form name="loginForm" onsubmit="return ValidasiForm()">
+                <div class="data-form">
+                    <label for="namaproduk">Nama Produk</label>
+                    <input type="text" name="fnamaproduk" required = "required" minlength="5" maxlength="30">
+                </div>
+
+                <div class="data-form">
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea type="text" name="fdeskripsi" required="required" maxlength="100" minlength="5"></textarea>
+                </div>
+
+                <div class="data-form">
+                    <label for="Kategori" >Kategori</label>
+                    <select id="Kategori" name="Kategori" required onchange="aturSubKategori()">
+                        <option value="" selected disabled>--Pilih kategori--</option>
+                        <option value="Baju">Baju</option>
+                        <option value="Elektronik">Elektronik</option>
+                        <option value="Alat Tulis">Alat Tulis</option>
+                    </select>
+                </div>
+
+                <div class="data-form">
+                    <label for="subKategori">Sub Kategori</label>
+                    <select id="subKategori" name="subKategori" required="required">
+                        <option value="" selected disabled>--pilih subkategori--</option>
+                    </select>
+                </div>
+
+                <div class="data-form">
+                    <label for="hargaSatuan">Harga Satuan</label>
+                    <input type="number" name="hargasatuan" required="required">
+                </div>
+
+                <div class="data-form">
+                    <label for="grosir" required>Grosir</label>
+                    <div class="radiobut" >
+                        <input type="radio" name="isGrosir" value="Ya"> Ya <br>
+                        <input type="radio" name="isGrosir" value="Tidak"> Tidak
+                    </div>
+                </div>
+
+                <div class="data-form">
+                    <label for="Harga-grosir">Harga Grosir</label>
+                    <input type="number" name="fhargagrosir" id="HargaGrosir" onfocus="isiHargaGrosir()">
+                </div>
+                <div class="data-form">
+                    <label for="checkbox">Jasa Kirim</label>
+                    <div class="checkbox1">
+                        <input type="checkbox" name="jasaKirim">JNE <br>
+                        <input type="checkbox" name="jasaKirim">TIKI <br>
+                        <input type="checkbox" name="jasaKirim">SiCepat <br>
+                        <input type="checkbox" name="jasaKirim">Ninja Express <br>
+                        <input type="checkbox" name="jasaKirim">Wahana   
+                    </div>
+                </div>
+
+                <div class="data-form">
+                    <label for="captcha">Captcha</label>
+                    <div class="captchaOnly">
+                        <span id = "randomCaptha">
+                        <input type="text" name="randomCap" id="randCaptcha">
+                        </span>
+                        <input type="text" name="fcaptcha" id="isikanCaptcha" required>
+                    </div>
+                </div>
+                <div class="tombol">         
+                    <input type="submit" name="submit" id="Submit" >
+                    <input type="reset" name="reset" id="Reset" onclick="generateCaptcha()">
+                </div>
+            </form>
+
+            <script>
+                //Fungsi createOption, untuk menambahkan opsi pada tag select-option
+                function createOption(selectElement, text, value) {
+                    const option = document.createElement("option");
+                    option.text = text;
+                    option.value = value;
+                    selectElement.appendChild(option);
+                }
+        
+                //Fungsi untuk sub kategori
+                function aturSubKategori(){
+                    const subKategoriBarang = document.getElementById("subKategori");
+                    const kategoriBarang = document.getElementById("Kategori").value;
+                    subKategoriBarang.innerHTML = ""; //nilai default select pada HTML sebalumnya di kosongkan
+
+                    if (kategoriBarang === "Baju") {
+                        createOption(subKategoriBarang,"Baju Pria", "Baju Pria");
+                        createOption(subKategoriBarang,"Baju Wanita", "Baju Wanita");
+                        createOption(subKategoriBarang,"Baju Anak", "Baju Anak");
+                    } else if (kategoriBarang === "Elektronik"){
+                        createOption(subKategoriBarang,"Mesin Cuci", "Mesin Cuci");
+                        createOption(subKategoriBarang,"Kulkas", "Kulkas");
+                        createOption(subKategoriBarang,"AC", "AC");
+                    } else if (kategoriBarang === "Alat Tulis"){
+                        createOption(subKategoriBarang,"Kertas", "Kertas");
+                        createOption(subKategoriBarang,"Map", "Map");
+                        createOption(subKategoriBarang,"Pulpen", "Pulpen");
+                    }
+                }
+
+                //Fungsi Captcha
+                function generateCaptcha(){
+                    let captcha = '';
+                    for (let i = 0 ; i < 5 ; i++){
+                        let charCode;
+                        if (Math.random() < 0.5){
+                            charCode = Math.floor(Math.random()*26) + 65; //Angka acak dari A - Z (dalam ASCII 65 - 90)
+                        }else{
+                            charCode = Math.floor(Math.random()*26) + 97; //Angka acak dari a - z (dalam ASCII 97 - 122)
+                        }
+                        let char = String.fromCharCode(charCode);
+                        captcha += char;
+                    }
+                    document.getElementById("randCaptcha").value = captcha;
+                }
+
+                //Fungsi Validasi (untuk submit)
+                function ValidasiForm(){
+                    //Syarat : grosir dan harga grosir
+                    const isGrosir = document.querySelector('input[name="isGrosir"]:checked');
+                    if (isGrosir && isGrosir.value === 'Ya') {
+                        const hargaGrosir = document.getElementById('HargaGrosir').value;
+                        if (isNaN(parseFloat(hargaGrosir))) {
+                            alert('Harga grosir harus diisi dengan nilai numerik.');
+                            return false;
+                        }
+                    }else if (isGrosir && isGrosir.value === 'Tidak') {
+                        const hargaGrosir = document.getElementById('HargaGrosir').value;
+                        if (!isNaN(parseFloat(hargaGrosir))) {
+                            alert('Harga grosir harus dikosongkan jika bukan produk grosir');
+                            return false;
+                        }
+                    }
+
+                    //Syarat : minimal jasa kirim yang dipilih adalah 3
+                    const jasaKirim = document.querySelectorAll('input[name=jasaKirim]:checked');
+                    if(jasaKirim.length < 3){
+                        alert("Minimal jasa kirim yang dipilih adalah 3.");
+                        return false;
+                    }
+
+                    //Syarat : captha yang dimasukkan harus benar
+                    if(document.getElementById("isikanCaptcha").value != document.getElementById("randCaptcha").value){
+                        alert("Captcha salah.")
+                        return false;
+                    }
+
+                    //Jika pengisian form sudah sesuai maka diberikan alert sukses
+                    alert("sukses, Form Data anda produk berhasil diisikan")
+                    return true;
+                }
+            </script>
+        </body>
+    </html>
