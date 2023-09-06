@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Validasi Form dengan JavaScript</title>
+  <script >
+      function validateForm() {
+//validasi nama produk harus berisi 5-30 karakter
+var namaProduk = document.forms["formRegistration"]["namaproduk"].value;
+if (namaProduk.length < 5 || namaProduk.length > 30) {
+    alert("Nama produk harus berisi 5 hingga 30 karakter.");
+    document.forms["formRegistration"]["namaproduk"].focus();
+    return false;
+}
+
+//validasi deskripsi harus berisi 5-100 karakter
+var deskripsi = document.forms["formRegistration"]["deskripsi"].value;
+if (deskripsi.length < 5 || deskripsi.length > 100) {
+    alert("Deskripsi produk harus berisi 5 hingga 100 karakter.");
+    document.forms["formRegistration"]["deskripsi"].focus();
+    return false;
+}
+    //validasi kategori tidak boleh kosong
+    if (document.forms["formRegistration"]["kategori"].value == "") {
+        alert("Silakan pilih kategori produk.");
+        document.forms["formRegistration"]["kategori"].focus();
+        return false;
+    }
+    //validasi harga satuan tidak boleh kosong dan harus numerik
+    if (document.forms["formRegistration"]["hargasatuan"].value == "") {
+        alert("Silakan isi harga satuan produk.");
+        document.forms["formRegistration"]["hargasatuan"].focus();
+        return false;
+    } else if (isNaN(document.forms["formRegistration"]["hargasatuan"].value)) {
+        alert("Harga satuan harus berupa angka.");
+        document.forms["formRegistration"]["hargasatuan"].value = "";
+        document.forms["formRegistration"]["hargasatuan"].focus();
+        return false;
+    }
+//validasi pilihan grosir harus terisi
+    var grosirInput = document.forms["formRegistration"]["grosir"];
+    var isGrosirTerisi = false;
+    for (var i = 0; i < grosirInput.length; i++) {
+        if (grosirInput[i].checked) {
+            isGrosirTerisi = true;
+            break;
+        }
+    }
+
+    if (!isGrosirTerisi) {
+        alert("Silakan pilih opsi grosir.");
+        return false;
+    }
+
+  var isGrosirYa = false;
+for (var i = 0; i < grosirInput.length; i++) {
+    if (grosirInput[i].checked && grosirInput[i].value === "Ya") {
+        isGrosirYa = true;
+        break;
+    }
+}
+
+var hargaGrosir = document.forms["formRegistration"]["hargagrosir"].value;
+
+if (isGrosirYa) {
+    if (hargaGrosir === "") {
+        alert("Silakan isi harga grosir produk jika grosir terpilih 'Ya'.");
+        document.forms["formRegistration"]["hargagrosir"].focus();
+        return false;
+    } else if (isNaN(hargaGrosir)) {
+        alert("Harga grosir harus berupa angka.");
+        document.forms["formRegistration"]["hargagrosir"].value = "";
+        document.forms["formRegistration"]["hargagrosir"].focus();
+        return false;
+    }
+} else {
+    if (hargaGrosir !== "") {
+        alert("Harga grosir harus kosong jika grosir tidak terpilih.");
+        document.forms["formRegistration"]["hargagrosir"].value = "";
+        document.forms["formRegistration"]["hargagrosir"].focus();
+        return false;
+    }
+}
+//validasi jasa kirim minimal harus memilih 3
+var jasaKirim = document.forms["formRegistration"]["jasakirim[]"];
+var jasaKirimSelectedCount = 0;
+for (var i = 0; i < jasaKirim.length; i++) {
+    if (jasaKirim[i].checked) {
+        jasaKirimSelectedCount++;
+    }
+}
+if (jasaKirimSelectedCount < 3) {
+    alert("Silakan pilih minimal tiga jasa kirim.");
+    return false;
+}
+
+    //validasi teks captcha harus sesuai dengan format
+    var captchaInput = document.forms["formRegistration"]["captcha_input"].value;
+    var captchaRegex = /^[a-zA-Z]{5}$/;
+    if (!captchaRegex.test(captchaInput)) {
+        alert("Captcha harus terdiri dari 5 huruf alfabet (A-Z atau a-z).");
+        return false;
+    }
+
+    //validasi teks captcha harus sesuai dengan captcha yang di-generate
+    var captchaText = document.forms["formRegistration"]["captcha_text"].value;
+    if (captchaInput !== captchaText) {
+        alert("Silakan ketik Captcha dengan benar.");
+        return false;
+    }
+
+    alert("Sukses! Terima kasih telah mengisi formulir.");
+    return true;
+}
+
+//fungsi untuk mengisi elemen <select id="subkategori"> sesuai nilai province yang dipilih
+function get_subkategori() {
+    let kategori = document.forms["formRegistration"]["kategori"].value;
+    if (kategori == "Baju") {
+        document.getElementById("subkategori").innerHTML =
+            '<option value="Baju Pria">Baju Pria</option>' +
+            '<option value="Baju Wanita">Baju Wanita</option>' +
+            '<option value="Baju Anak">Baju Anak</option>';
+    }
+    if (kategori == "Elektronik") {
+        document.getElementById("subkategori").innerHTML =
+            '<option value="Mesin Cuci">Mesin Cuci</option>' +
+            '<option value="Kulkas">Kulkas</option>' +
+            '<option value="AC">AC</option>';
+    }
+    if (kategori == "Alat Tulis") {
+        document.getElementById("subkategori").innerHTML =
+            '<option value="Kertas">Kertas</option>' +
+            '<option value="Map">Map</option>' +
+            '<option value="Pulpen">Pulpen</option>';
+    }
+}
+
+// Fungsi untuk mengenerate Captcha
+function generateCaptcha() {
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var captcha = '';
+    for (var i = 0; i < 5; i++) {
+        var randomChar = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        captcha += randomChar;
+    }
+    document.forms["formRegistration"]["captcha_text"].value = captcha;
+}
+  </script> 
+</head>
+<body onload="generateCaptcha()"> 
+<h2>Form Tambah Data Produk</h2>
+<form id="formRegistration" method="GET" autocomplete="on" action="" onsubmit="return validateForm()">
+  <table>
+    <tr>
+      <td><label for="namaproduk">Nama Produk</label></td>
+      <td><input type="text" name="namaproduk" id="namaproduk" size="30" /></td>
+    </tr>
+    <tr>
+      <td>Deskripsi</td>
+      <td><textarea name="deskripsi" rows="5" cols="30"></textarea></td>
+    </tr>
+    <tr>
+      <td><label for="kategori">Kategori</label></td>
+      <td><select name="kategori" id="kategori" onchange="get_subkategori()">
+            <option value="">--Pilih Kategori--</option>
+            <option value="Baju">Baju</option>
+            <option value="Elektronik">Elektronik</option>
+            <option value="Alat Tulis">Alat Tulis</option>
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="subkategori">Sub Kategori</label></td>
+      <td><select name="subkategori" id="subkategori">
+            <option value="">--Pilih Sub Kategori--</option>
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="hargasatuan">Harga Satuan</label></td>
+      <td><input type="text" name="hargasatuan" id="hargasatuan" size="10"></td>
+    </tr>
+    <tr>
+      <td>Grosir</td>
+      <td>
+        <input type="radio" name="grosir" id="Ya" value="Ya">
+        <label for="Ya">Ya</label><br />
+        <input type="radio" name="grosir" id="tidak" value="tidak">
+        <label for="tidak">tidak</label>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="hargagrosir">Harga Grosir</label></td>
+      <td><input type="text" name="hargagrosir" id="hargagrosir" size="10"></td>
+    </tr>
+    <tr>
+      <td><label for="jasakirim">Jasa Kirim</label></td>
+      <td>
+        <input type="checkbox" name="jasakirim[]" id="JNE" value="JNE">
+        <label for="JNE">JNE</label><br />
+        <input type="checkbox" name="jasakirim[]" id="TIKI" value="TIKI">
+        <label for="TIKI">TIKI</label><br /> 
+        <input type="checkbox" name="jasakirim[]" id="SiCepat" value="SiCepat">
+        <label for="SiCepat">SiCepat</label><br /> 
+        <input type="checkbox" name="jasakirim[]" id="NinjaExpress" value="NinjaExpress">
+        <label for="NinjaExpress">NinjaExpress</label><br /> 
+      </td>
+    </tr>
+    <tr>
+      <td><label for="captcha">Captcha</label></td>
+      <td>
+        <input type="text" name="captcha_text" size="10" disabled>
+        <input type="text" name="captcha_input" id="captcha_input" size="10">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><br><input type="submit" name="submit" value="Submit">&nbsp; 
+      <input type="reset" name="reset" value="Reset"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
