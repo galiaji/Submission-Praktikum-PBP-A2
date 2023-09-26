@@ -3,6 +3,7 @@
     <div class="card-header">Customers Data</div>
     <div class="card-body">
         <a href="add_customer.php" class="btn btn-primary mb-4">+ Add Customer Data</a>
+        <a href="logout.php" class="btn btn-danger mb-4" style="float: right">Logout</a>
         <br>
         <table class="table table-striped">
             <tr>
@@ -11,7 +12,7 @@
                 <th>Address</th>
                 <th>City</th>
                 <th>Action</th>
-            </tr>
+            </tr>
             <?php
             // TODO 1: Buat koneksi dengan database
             require_once("../bookorama/lib/db_login.php");
